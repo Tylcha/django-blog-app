@@ -1,0 +1,69 @@
+{% load static %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="mu-comments-area">
+        <h3></h3>
+        <div class="comments">
+            {% for comment in post.comments.all %}
+          <ul class="commentlist">
+            <li>
+                {% if  comment.approved_comment %}
+              <div class="media">
+                <div class="media-left">    
+                  <img alt="img" src="{% static 'assets/img/testimonial-1.png' %} " class="media-object news-img">
+                </div>
+                <div class="media-body">
+                 <h4 class="author-name">{{ comment.name }}</h4>
+                 <span class="comments-date"> {{ comment.created_date|timesince }} once</span>
+                 <p>{{ comment.content|linebreaks }}</p>
+                </div>
+              </div>
+            </li>
+            {% endif %}
+          </ul>
+          {% endfor %}
+          <!-- comments pagination -->
+          <nav>
+            <ul class="pagination comments-pagination">
+              <li>
+                <a aria-label="Previous" href="#">
+                  <span class="fa fa-long-arrow-left"></span>
+                </a>
+              </li>
+              <li><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li>
+                <a aria-label="Next" href="#">
+                  <span class="fa fa-long-arrow-right"></span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end blog comment -->
+  <!-- start respond form -->
+  <div class="row">
+    <div class="col-md-12">
+      <div id="respond">
+        <h3 class="reply-title">Yorum Yaz</h3>
+        <form method="POST" id="commentform">
+            {% csrf_token %}
+          
+            {{form.as_p}}
+            <input type="submit" value="Gonder" class="mu-post-btn" name="submit">
+          </p>        
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- end respond form -->
+{% endblock content %}
